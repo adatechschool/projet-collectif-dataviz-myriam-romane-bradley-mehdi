@@ -6,7 +6,7 @@ async function getDataExperience(){
       headers: {
         cookie: 'BIGipServerVS_EX035-VIPA-A4PMEX_HTTP.app~POOL_EX035-VIPA-A4PMEX_HTTP=251070986.10062.0000; TS01585e85=01b3abf0a2600b9070e0208e6c69297328ff71af3418f75a7c004480c8586c5635b45b9f16e8d90766ea93053ba4214d2a03fad907',
         // authorisation à renouveler régulièrement(25min)
-        Authorization: 'Bearer PSG8PEzjhtR1yhDuSrm4nzx7pR4'
+        Authorization: 'Bearer B19eyGX3Et8tBNWISz1TejwAyNo'
       }
     };
 
@@ -52,14 +52,18 @@ async function getDataExperience(){
         xp3 = response.resultats.length;
         console.log(xp3)
       })
-      .then(() =>  {
-        xp2 = xp2A + xp2B;
-        console.log(xp2)
-      })
       .catch(err => console.error(err));
 
-      // await () => xp2 = xp2A + xp2B;
+      xp2 = xp2A + xp2B;
+      return [xp1,xp2,xp3];
     
   }
 
-  getDataExperience();
+  // fonction pour construire le graph => à terminer demain 
+  async function drawGraphExperience () {
+    let array = await getDataExperience();
+    
+  } 
+  
+
+
