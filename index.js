@@ -6,7 +6,7 @@ async function getDataExperience(){
       headers: {
         cookie: 'BIGipServerVS_EX035-VIPA-A4PMEX_HTTP.app~POOL_EX035-VIPA-A4PMEX_HTTP=251070986.10062.0000; TS01585e85=01b3abf0a2600b9070e0208e6c69297328ff71af3418f75a7c004480c8586c5635b45b9f16e8d90766ea93053ba4214d2a03fad907',
         // authorisation à renouveler régulièrement(25min)
-        Authorization: 'Bearer V6y-MVRveIBIErkSlOtVGSQFpaY'
+        Authorization: 'Bearer pS0MU8utJlOwFCmk6wGw6itYfpE'
       }
     };
 
@@ -62,35 +62,124 @@ async function getDataExperience(){
   // fonction pour construire le graph => à terminer demain 
   async function drawGraphExperience () {
     let arrayXP = await getDataExperience();
-    //Example--------------------
-    let ctx = document.getElementById("chart").getContext("2d");
-    let chart = new Chart(ctx, {
-      type: "pie",
-      data: {
-            labels: ["Moins de 1 ans", "Entre 1-3 ans", "+3 ans"],
-          datasets: [
-        {
-          label: "Annees d'Experience",
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(54, 162, 235)',
-            'rgb(255, 205, 86)'
-          ],
-          hoverOffset: 85,
-          borderColor: '#000000',
-          data: arrayXP
-        }
-     ]
+    //Pie graph example using 
+//     let ctx = document.getElementById("chart").getContext("2d");
+//     let chart = new Chart(ctx, {
+//       type: "pie",
+//       data: {
+//             labels: ["Moins de 1 ans", "Entre 1-3 ans", "+3 ans"],
+//           datasets: [
+//         {
+//           label: "Annees d'Experience",
+//           backgroundColor: [
+//             'rgb(255, 99, 132)',
+//             'rgb(54, 162, 235)',
+//             'rgb(255, 205, 86)'
+//           ],
+//           hoverOffset: 85,
+//           borderColor: '#000000',
+//           data: arrayXP
+//         }
+//      ]
+//   },
+//   options: {
+//     tooltips: {
+//       enabled: false
+//   },
+//     plugins: {
+//       datalabels: {
+//         formatter: (value, ctx) => {
+//           let datasets = ctx.chart.data.datasets.data;
+//           if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
+//             let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+//             let percentage = Math.round((value / sum) * 100) + '%';
+//             return percentage;
+//           } else {
+//             return percentage;
+//           }
+//         },
+//         color: '#fff',
+//       }
+//     }
+//     ,
+//      title: {
+//         text: "Breakdown of Dev Jobs in Nantes/Years experience",
+//         display: true
+//      }
+//   }
+// });
+//   } 
+//   let ctx = document.getElementById("chart").getContext("2d");
+//   let chart = new Chart(ctx, {
+//     type: "pie",
+//     data: {
+//           labels: ["Moins de 1 ans", "Entre 1-3 ans", "+3 ans"],
+//         datasets: [
+//       {
+//         label: "Annees d'Experience",
+//         backgroundColor: [
+//           'rgb(255, 99, 132)',
+//           'rgb(54, 162, 235)',
+//           'rgb(255, 205, 86)'
+//         ],
+//         hoverOffset: 85,
+//         borderColor: '#000000',
+//         data: arrayXP
+//       }
+//    ]
+// },
+// options: {
+//   tooltips: {
+//     enabled: false
+// },
+//   plugins: {
+//     datalabels: {
+//       formatter: (value, ctx) => {
+//         let datasets = ctx.chart.data.datasets.data;
+//         if (datasets.indexOf(ctx.dataset) === datasets.length - 1) {
+//           let sum = datasets[0].data.reduce((a, b) => a + b, 0);
+//           let percentage = Math.round((value / sum) * 100) + '%';
+//           return percentage;
+//         } else {
+//           return percentage;
+//         }
+
+var data = [{
+  data: arrayXP,
+  backgroundColor: [
+    "#4B77A9",
+    "#5F255F",
+    "#D21243",
+    "#B27200"
+  ],
+  borderColor: "#fff"
+}];
+var options = {
+  tooltips: {
+    enabled: true
   },
-  options: {
-     title: {
-        text: "Breakdown of Dev Jobs in Nantes/Years experience",
-        display: true
-     }
+  plugins: {
+    datalabels: {
+      formatter: (value, ctx) => {
+        let sum = ctx.dataset._meta[0].total;
+        let percentage = (value * 100 / sum).toFixed(0) + "%";
+        return percentage;
+      },
+      color: '#fff',
+    }
   }
+};
+var ctx = document.getElementById("pie-chart").getContext('2d');
+var myChart = new Chart(ctx, {
+  type: 'pie',
+  data: {
+  labels: ['< 1 an>', 'Entre 1 et 3 ans', '> 3 ans'],
+    datasets: data
+  },
+  options: options
 });
-  } 
-  
+  }
+
 
 drawGraphExperience()
 
