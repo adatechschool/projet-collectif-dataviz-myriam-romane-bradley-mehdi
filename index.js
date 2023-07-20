@@ -6,7 +6,7 @@ async function getDataExperience(){
       headers: {
         cookie: 'BIGipServerVS_EX035-VIPA-A4PMEX_HTTP.app~POOL_EX035-VIPA-A4PMEX_HTTP=251070986.10062.0000; TS01585e85=01b3abf0a2600b9070e0208e6c69297328ff71af3418f75a7c004480c8586c5635b45b9f16e8d90766ea93053ba4214d2a03fad907',
         // authorisation à renouveler régulièrement(25min)
-        Authorization: 'Bearer B19eyGX3Et8tBNWISz1TejwAyNo'
+        Authorization: 'Bearer V6y-MVRveIBIErkSlOtVGSQFpaY'
       }
     };
 
@@ -61,9 +61,37 @@ async function getDataExperience(){
 
   // fonction pour construire le graph => à terminer demain 
   async function drawGraphExperience () {
-    let array = await getDataExperience();
-    
+    let arrayXP = await getDataExperience();
+    //Example--------------------
+    let ctx = document.getElementById("chart").getContext("2d");
+    let chart = new Chart(ctx, {
+      type: "pie",
+      data: {
+            labels: ["Moins de 1 ans", "Entre 1-3 ans", "+3 ans"],
+          datasets: [
+        {
+          label: "Annees d'Experience",
+          backgroundColor: [
+            'rgb(255, 99, 132)',
+            'rgb(54, 162, 235)',
+            'rgb(255, 205, 86)'
+          ],
+          hoverOffset: 85,
+          borderColor: '#000000',
+          data: arrayXP
+        }
+     ]
+  },
+  options: {
+     title: {
+        text: "Breakdown of Dev Jobs in Nantes/Years experience",
+        display: true
+     }
+  }
+});
   } 
   
+
+drawGraphExperience()
 
 
