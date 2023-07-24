@@ -1,0 +1,14 @@
+h1 { 
+font-family: 'Gill Sans' ;
+font-size:300%;
+color: darkolivegreen;
+text-align: center;
+}
+
+#codePostal {
+text-align: center;
+}
+
+#departement {
+width:15% ;
+}
