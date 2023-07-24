@@ -1,7 +1,7 @@
 h1 { 
 font-family: 'Gill Sans' ;
 font-size:300%;
-color: darkolivegreen;
+color: #1ED180;
 text-align: center;
 }
 
@@ -11,4 +11,29 @@ text-align: center;
 
 #departement {
 width:15% ;
+}
+
+#intro {
+    text-align: center;
+}
+
+input {
+    height : 30px;
+    min-width: 320px;
+    font-size: 1em;
+    text-align: center;
+    border-radius: 25px;
+    background-color: white;
+    border-color: #a7dfc6;
+}
+
+button {
+    height : 30px;
+    min-width: 50px;
+    font-size: 1em;
+    text-align: center;
+    border-radius: 25px;
+    background-color: #a7dfc6;
+    border-color: white;
+    border-style: none;
 }
