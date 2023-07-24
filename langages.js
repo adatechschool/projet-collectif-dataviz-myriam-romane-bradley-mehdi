@@ -117,9 +117,9 @@ async function generateKey () {
         //   }
         // };
   
-         var ctx = document.getElementById("barChartLangages").getContext('2d');
+         var ctx = document.getElementById("ChartLangages").getContext('2d');
         var myChart = new Chart(ctx, {
-          type: 'bar',
+          type: 'doughnut',
           data: {
           labels: arrayLangages,
             datasets: data

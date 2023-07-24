@@ -3,18 +3,98 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link src="style.css" rel="stylesheet" />
+    <link href="style.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
-    <title>Dataviz-Projet</title>
+    <title>Choose your career </title>
   </head>
+  
   <body>
-    <div id="firstGraph">
-      <canvas id="pieChartExperience"></canvas>
-      <canvas id="barChartLangages"></canvas>
+    <h1>Choose your career</h1>
+
+  <div>
+    <div id="codePostal">
+    <label id= "dep" for = "departement">Dans quel département habites-tu ?</label> <br>
+    <input type = "number" id="departement" name="departement" min = "1" max="974" placeholder="Tape ton numéro de département (ex: 44)">
+    <button>Lancer la recherche</button>
+  </div>
+  
+    <div class="graph"> 
+      <div> <canvas id="ChartExperience"></canvas> </div>
+      <div> <canvas id="ChartLangages"></canvas> </div>
+      <div> <canvas id="ChartSalary"></canvas> </div>
     </div>
+  </div>
+
+  <fieldset>
+  <legend>Quel est ton niveau d'expérience ?</legend>
+    <div>
+    <input id = "debutant" type = "radio" name="experience" value= 1 > 
+    <label for="debutant"> Moins d'1 an d'expérience </label>
+    </div>
+
+    <div>
+    <input id = "confirme" type = "radio" name="experience" value= 2 > 
+    <label for="confirme"> Entre 1 an et 3 ans d'expérience </label>
+    </div>
+
+    <div>
+    <input id = "expert" type = "radio" name="experience" value= 3 > 
+    <label for="expert"> Plus de 3 ans d'expérience </label>
+    </div>
+  </fieldset>
+    
+  <fieldset>
+    <legend>Quel type de contrat cherches-tu ?</legend>
+      <div>
+      <input id = "cdi" type = "radio" name="contrat" value= 1 > 
+      <label for="cdi"> CDI </label>
+      </div>
+  
+      <div>
+      <input id = "cdd" type = "radio" name="contrat" value= 2 > 
+      <label for="cdd"> CDD </label>
+      </div>
+  
+      <div>
+      <input id = "alternance" type = "radio" name="contrat" value= 3 > 
+      <label for="alternance"> Alternance </label>
+      </div>
+
+      <div>
+      <input id = "stage" type = "radio" name="contrat" value= 4 > 
+      <label for="stage"> Stage </label>
+      </div>
+    </fieldset>   
+
+    <fieldset>
+      <legend>Quel type d'entreprise cherches-tu ?</legend>
+        <div>
+        <input id = "start-up" type = "radio" name="companyType" value= 1 > 
+        <label for="start-up"> Start-up </label>
+        </div>
+    
+        <div>
+        <input id = "pme" type = "radio" name="companyType" value= 2 > 
+        <label for="pme"> PME </label>
+        </div>
+    
+        <div>
+        <input id = "grand-groupe" type = "radio" name="companyType" value= 3 > 
+        <label for="grand-groupe"> Grand groupe </label>
+        </div>
+  
+        <div>
+        <input id = "esn" type = "radio" name="companyType" value= 4 > 
+        <label for="esn"> ESN</label>
+        </div>
+      </fieldset> 
+    
+    <button>Lancer la recherche</button>
+  
+  </div>
   </body>
-  <!--<script src="index.js"></script>-->
+  <script src="index.js"></script>
   <script src="langages.js"></script>
 </html>
