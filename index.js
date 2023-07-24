@@ -118,7 +118,7 @@ async function getDataExperience(token){
         }
       };
 
-       var ctx = document.getElementById("pieChartExperience").getContext('2d');
+       var ctx = document.getElementById("ChartExperience").getContext('2d');
       var myChart = new Chart(ctx, {
         type: 'pie',
         data: {

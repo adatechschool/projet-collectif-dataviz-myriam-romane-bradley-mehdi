@@ -80,7 +80,8 @@ async function execute () {
           borderColor: "#fff"
         }];
   
-         var ctx = document.getElementById("chart").getContext('2d');
+        var ctx = document.getElementById("ChartLangages").getContext('2d');
+
         var myChart = new Chart(ctx, {
           type: 'doughnut',
           data: {
