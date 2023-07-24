@@ -43,6 +43,7 @@ async function getDataExperience(token){
     var xp2B;
     var xp2;
     var xp3;
+
  
     //fetch pour récupérer tous les jobs qui répondent au ROME 1805 de Nantes avec -1 an d'XP sur 1mois
     await fetch('https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&experience=1&publieeDepuis=31&commune=44109', options)
@@ -52,7 +53,6 @@ async function getDataExperience(token){
       console.log(xp1)    //on attend que les .then s'effectuent puis on appelle console.log de xp1 pour afficher le resultat 
       })  
       .catch(err => console.error(err));
-
     
       //fetch pour récupérer tous les jobs qui répondent au ROME 1805 de Nantes avec de 1 à 3 ans d'XP sur 1mois (0-149)
       await fetch('https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&experience=2&publieeDepuis=31&commune=44109&range=0-149', options)
@@ -67,8 +67,8 @@ async function getDataExperience(token){
       await fetch('https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&experience=2&publieeDepuis=31&commune=44109&range=150-299', options)
       .then(response => response.json())
       .then(response => {
-        xp2B = response.resultats.length;
-        console.log(xp2B)
+        xpS2 = response.resultats.length;
+        console.log(xpS2)
       })
       .catch(err => console.error(err));
 
