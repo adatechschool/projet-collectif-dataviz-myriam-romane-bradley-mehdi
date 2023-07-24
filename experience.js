@@ -67,8 +67,8 @@ async function getDataExperience(token){
       await fetch('https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&experience=2&publieeDepuis=31&commune=44109&range=150-299', options)
       .then(response => response.json())
       .then(response => {
-        xpS2 = response.resultats.length;
-        console.log(xpS2)
+        xp2B = response.resultats.length;
+        console.log(xp2B)
       })
       .catch(err => console.error(err));
 
