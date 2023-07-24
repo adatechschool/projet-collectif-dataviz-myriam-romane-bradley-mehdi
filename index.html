@@ -13,18 +13,21 @@
   <body>
     <h1>Choose your career</h1>
     <p id="intro">Hello les dev !<br><br>Lorsqu'on débute (et même plus tard), il est parfois difficile de savoir quel nouveau langage explorer. <br><br>Ici, tu trouveras des informations sur les langages les plus recherchés dans le département de ton choix.<br><br> Tu pourras aussi avoir des infos sur les niveaux d'expérience demandés et les salaires moyens. <br><br>Parcours le site pour décider de ta carrière !</p>
-  <div>
+    
     <div id="codePostal">
     <input type = "number" id="departement" name="departement" min = "1" max="974" placeholder="Tape ton numéro de département (ex: 44)">
     <button>Chercher</button>
-  </div>
-  
-    <div class="graph"> 
-      <div> <canvas id="ChartExperience"></canvas> </div>
-      <div> <canvas id="ChartLangages"></canvas> </div>
-      <div> <canvas id="ChartSalary"></canvas> </div>
     </div>
-  </div>
+  
+    <div class="container"> 
+      <div class="chart">
+        <canvas id="ChartExperience" width="300" height="300"></canvas>
+      </div>
+      <div class="chart">
+        <canvas id="ChartLangages" width="300" height="300"></canvas>
+      </div>
+    </div>
+
 
   <fieldset>
   <legend>Quel est ton niveau d'expérience ?</legend>
