@@ -103,6 +103,7 @@ async function getDataExperience(token){
         tooltips: {
           enabled: true
         },
+        // pourcentages
         plugins: {
           datalabels: {
             //permet de transformer les données en pourcentages

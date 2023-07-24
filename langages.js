@@ -1,94 +1,76 @@
+async function getData(index) {
+    let array;
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", "Bearer 7R3iOAwG-9-gwOV0TQiHT1qK9yw");
+    myHeaders.append("Cookie", "BIGipServerVS_EX035-VIPA-A4PMEX_HTTP.app~POOL_EX035-VIPA-A4PMEX_HTTP=4143319562.9038.0000; TS01585e85=01b3abf0a2e73b7552eab0cfcb61e6196fb1f91f0a6994588e4ddb090e9bea30f0ecb1ce72e3c1c426d1be2c56618aa62f0a7ac345");
 
-// on génère une clé d'authentification qui se renouvelle automatiquement à chaque refresh
-async function generateKey () {
-
-    let key;
-    var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-        myHeaders.append("Cookie", "BIGipServerPOOL_PROD02-SDDC-K8S_HTTPS=!MzbYYzVoy1TgqwhRqEhkI+kwdf49cAqOF/3/Rf38tGGA9DXgXG1RUtN+om+n1GQ37s7eKBdKSu8fzA==; TS0188135e=01b3abf0a271a2e5229e9250dfce06c5f7be79e4ed8113e82da3192d205f8b502bc42baf5122ea5c917d27e5703faae60a44fdccdb; so007-peame-affinity-prod-p=5ac58ed77574300");
-    var urlencoded = new URLSearchParams();
-        urlencoded.append("grant_type", "client_credentials");
-        urlencoded.append("client_id", "PAR_chooseyourcareer_a46a7e7b1492ea6ed52a59cf346f1e33edede550782465e066b5fab7450b54c6");
-        urlencoded.append("client_secret", "58dd8113d15f686a383c0fb3109a1e0d6be821c667b63d9172c265a8beccfde6");
-        urlencoded.append("scope", "api_offresdemploiv2 o2dsoffre");   
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: urlencoded,
-        redirect: 'follow'
+    let requestOptions = {
+    method: 'GET',
+    headers: myHeaders,
+    redirect: 'follow'
     };
-    await fetch("https://entreprise.pole-emploi.fr/connexion/oauth2/access_token?realm=/partenaire", requestOptions)
-        .then(response => response.json())
-        .then(result => key = result.access_token)
-        .catch(error => console.log('error', error));
-        console.log(key)
-        return key
-  }
-  
-  async function getDataLangages(token){
-    const requestOptions = {
-        method: 'GET',
-        headers: {
-          cookie: 'BIGipServerVS_EX035-VIPA-A4PMEX_HTTP.app~POOL_EX035-VIPA-A4PMEX_HTTP=251070986.10062.0000; TS01585e85=01b3abf0a2600b9070e0208e6c69297328ff71af3418f75a7c004480c8586c5635b45b9f16e8d90766ea93053ba4214d2a03fad907',
-          Authorization: `Bearer ${token}`
-        }
-      };
 
-    arrayLangages = [
-        "java",
-        "C++",
-        "php",
-        "javascript",
-        "python",
-        "SQL"
-    ]
+    await fetch(`https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&publieeDepuis=31&departement=44&range=${index}-${index+149}`, requestOptions)
+    .then(response => response.json())
+    .then(result => array = result.resultats)
+    .catch(error => array = []);
 
-    let offersByLangage = []; //tableau vide pour recueillir les données 
-    let range = 0; //range = nombre d'offres d'emploi qu'on peut afficher en une seule fois (max = 150)
-    for (langage of arrayLangages) {
-      
-        try {
-            //fetch pour récupérer tous les jobs qui répondent au ROME 1805 de Nantes et correspondant à un langage donné
-            let data = await fetch(`https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&publieeDepuis=31&departement=44&motsCles=${langage}&range=${range}-${range+149}`, requestOptions)
-            let response = await data.json();
-            let result = await response.resultats;
-            let accumulator = await result.length;
-
-            if(accumulator == 150){
-                range += 150;
-                try{
-                    let data2 = await fetch(`https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&publieeDepuis=31&departement=44&motsCles=${langage}&range=${range}-${range+149}`, requestOptions)
-                    let response2 = await data2.json();
-                    let result2 = await response2.resultats;
-                    let length = await result2.length;
-                    accumulator = accumulator + length; 
-                    
-                } catch (error) {
-                    console.log(`ERREUR nombre d'offres ${langage} : 0`);
-                }
-                }
-                
-            offersByLangage.push(accumulator);
-            console.log(`nombre d'offres ${langage} : ${accumulator}`);
-
-        } catch (error) {
-            offersByLangage.push(0);
-            console.log(`ERREUR nombre d'offres ${langage} : 0`);
-        }
-    }
-
- return offersByLangage;
-
+    return array;
 }
 
-    // fonction pour construire le graphique
-    async function drawGraphLangages (token) {
-      var offersByLangage = await getDataLangages(token); 
-  
-        var data = [{
-          data: offersByLangage,
+
+
+async function execute () {
+    let finalArray=[];
+    let index=0;
+    let stopCondition = false;
+    while (!stopCondition) {
+        let newArray = await getData(index);
+        if (newArray.length === 0) {
+            stopCondition = true;
+        }
+        finalArray = finalArray.concat(newArray);
+        index+=150;
+    }
+
+    console.log(`nombre d'offres total : ${finalArray.length}`);
+    let langages = {
+        java : ["java ","Java ","JAVA ","Java/","JAVA/","java/"],
+        python : ["python","Python","PYTHON","python/","Python/","PYTHON/"],
+        php : ['php',"PHP","PHP/","php/"],
+        C : ["C ","C/","C/C++","C++"],
+        Csharp : ["C#/","C#"],
+        javascript : ["js","JS","Javascript","JAVASCRIPT","javascript","node","Node","nodeJS","NodeJS","js/","JS/","Javascript/","JAVASCRIPT/","javascript/","node/","Node/","nodeJS/","NodeJS/"]
+    }
+    let nbOffresTrouvees=0;
+    let nbOffresParLangage=[];
+    for (const langage in langages) {
+        let counter = 0;
+        for (let i =0; i<finalArray.length; i++) {
+            let string = JSON.stringify(finalArray[i]);
+            let search=0;
+            langages[langage].forEach(element => { 
+                if(string.indexOf(element) != -1) {
+                    search++;
+                }
+            });
+            if (search > 0) {
+                counter++;
+            }
+        }
+        if (counter !== 0) {
+            nbOffresTrouvees+=counter;
+            console.log(`nombre d'offres ${langage} : ${counter}`);
+            nbOffresParLangage.push(counter);
+        }
+    }
+    console.log(nbOffresTrouvees);
+
+    var data = [{
+          data: nbOffresParLangage,
           backgroundColor: [
-            "#4B77A9",
+            "#1ED180",
             "#5F255F",
             "#D21243",
             '#9BD0F5',
@@ -97,39 +79,15 @@ async function generateKey () {
           ],
           borderColor: "#fff"
         }];
-
-        //pour mettre en pourcentage
-        // var options = {
-        //   tooltips: {
-        //     enabled: true
-        //   },
-        //   plugins: {
-        //     datalabels: {
-        //       //permet de transformer les données en pourcentages
-        //       formatter: (value, ctx) => {
-        //         let sum = ctx.dataset._meta[0].total; //demander pour _meta[0]
-        //        // let sum = data[0].data.reduce((accumulator, currentValue) => accumulator + currentValue,0);     n'adapte pas les %
-        //         let percentage = (value * 100 / sum).toFixed(0) + "%";  //.toFixed(0) permet d'arrondir sans avoir de chiffres à virgule
-        //         return percentage;
-        //       },
-        //       color: '#fff',
-        //     }
-        //   }
-        // };
   
-         var ctx = document.getElementById("barChartLangages").getContext('2d');
+         var ctx = document.getElementById("chart").getContext('2d');
         var myChart = new Chart(ctx, {
-          type: 'bar',
+          type: 'doughnut',
           data: {
-          labels: arrayLangages,
+          labels: ["java","python","php","C/C++","C#","JS"],
             datasets: data
           }
         });
-          }
-  
-  async function execution(){
-  let keyResult = await generateKey();
-  await drawGraphLangages(keyResult);
-  }
-  
-  execution();
+}
+
+execute();
