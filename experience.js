@@ -93,9 +93,9 @@ async function getDataExperience(token){
       var data = [{
         data: arrayXP,
         backgroundColor: [
-          "#4B77A9",
-          "#5F255F",
-          "#D21243"
+          "#264653",
+          "#e9c46a",
+          "#e76f51",
         ],
         borderColor: "#fff"
       }];

@@ -92,12 +92,12 @@ async function execute () {
     var data = [{
           data: nbOffresParLangage,
           backgroundColor: [
-            "#1ED180",
-            "#5F255F",
-            "#D21243",
-            '#9BD0F5',
-            '#FFB1C1',
-            '#36A2EB'
+            "#264653",
+            "#2a9d8f",
+            "#e9c46a",
+            '#f4a261',
+            '#e76f51',
+            '#d90429'
           ],
           borderColor: "#fff"
         }];
