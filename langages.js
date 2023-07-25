@@ -47,6 +47,9 @@ async function getData(index,token) {
 }
 
 async function execute () {
+  if(document.getElementById("ChartLangages")) {
+    document.getElementById("ChartLangages").remove();
+  }
   let token = await generateKey();
     let finalArray=[];
     let index=0;
@@ -85,7 +88,7 @@ async function execute () {
                 counter++;
             }
         }
-        if (counter !== 0) {
+        if (counter >= 0) {
             nbOffresTrouvees+=counter;
             console.log(`nombre d'offres ${langage} : ${counter}`);
             nbOffresParLangage.push(counter);
@@ -135,8 +138,25 @@ async function execute () {
             }
           };
           
-        var ctx = document.getElementById("ChartLangages").getContext('2d');
+        
 
+        function addElement() {
+          // create a new div canvas
+          const newCanvas = document.createElement("canvas");
+        
+          // add the attributes
+          newCanvas.setAttribute("id","ChartLangages");
+          newCanvas.setAttribute("width","300");
+          newCanvas.setAttribute("height","300");
+      
+          //ajouter dans le HTML
+          document.getElementById("chart2").appendChild(newCanvas);
+        }
+        
+        addElement();
+
+        var ctx = document.getElementById("ChartLangages").getContext('2d');
+        
         var myChart = new Chart(ctx, {
           type: 'doughnut',
           data: {

@@ -49,6 +49,9 @@ async function generateKey () {
     return array;
 }
 async function execute () {
+    if(document.getElementById("ChartContrats")) {
+      document.getElementById("ChartContrats").remove();
+    }
     let token = await generateKey();
       let finalArray=[];
       let index=0;
@@ -68,7 +71,6 @@ async function execute () {
 let typeContrat = {
     CDD : ["CDD"],
     CDI : ["CDI"],
-    Interim : ["interim"],
     Stage :["stage"],
     Alternance : ["apprentissage","alternant","professionalisation"]
     
@@ -102,8 +104,7 @@ var data = [{
       "#2a9d8f",
       "#e9c46a",
       '#f4a261',
-      '#e76f51',
-      '#d90429'
+      '#e76f51'
     ],
     borderColor: "#fff"
   }];
@@ -135,16 +136,35 @@ var data = [{
        }
       }
     };
-    
+  
+
+
+
+  function addElement() {
+    // create a new div canvas
+    const newCanvas = document.createElement("canvas");
+  
+    // add the attributes
+    newCanvas.setAttribute("id","ChartContrats");
+    newCanvas.setAttribute("width","300");
+    newCanvas.setAttribute("height","300");
+
+    //ajouter dans le HTML
+    document.getElementById("chart3").appendChild(newCanvas);
+  }
+  
+  addElement();
+
   var ctx = document.getElementById("ChartContrats").getContext('2d');
 
   var myChart = new Chart(ctx, {
     type: 'doughnut',
     data: {
-    labels: ["CDD","CDI","interim","stage","alternance"],
+    labels: ["CDD","CDI","stage","alternance"],
       datasets: data
     },
     options: options
   });
 }
+
 document.getElementById("button").addEventListener("click",execute)

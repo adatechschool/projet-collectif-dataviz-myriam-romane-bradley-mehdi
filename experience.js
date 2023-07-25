@@ -1,3 +1,5 @@
+
+
 // générer la clé automatiquement dès le lancement du script
 async function generateKey () {
   
@@ -93,6 +95,9 @@ async function getDataExperience(token){
 
   // fonction pour construire le graph => à terminer demain 
   async function drawGraphExperience (token) {
+    if(document.getElementById("ChartExperience")) {
+      document.getElementById("ChartExperience").remove();
+    }
     var arrayXP = await getDataExperience(token); 
 
       var data = [{
@@ -134,7 +139,25 @@ async function getDataExperience(token){
         }
       };
 
+
+
+      function addElement() {
+        // create a new div canvas
+        const newCanvas = document.createElement("canvas");
+      
+        // add the attributes
+        newCanvas.setAttribute("id","ChartExperience");
+        newCanvas.setAttribute("width","300");
+        newCanvas.setAttribute("height","300");
+    
+        //ajouter dans le HTML
+        document.getElementById("chart1").appendChild(newCanvas);
+      }
+      
+      addElement();
+
       var ctx = document.getElementById("ChartExperience").getContext('2d');
+
       var myChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
@@ -148,10 +171,11 @@ async function getDataExperience(token){
       
 
 
-document.getElementById("button").addEventListener("click",execute)
+document.getElementById("button").addEventListener("click",execute);
+
 async function execute(){
-let keyResult = await generateKey ()
-await drawGraphExperience(keyResult)  
+let keyResult = await generateKey();
+await drawGraphExperience(keyResult);
 document.getElementById("date").innerHTML = new Date().toLocaleDateString() + " à " +  new Date().toLocaleTimeString() + " sur l'API pole emploi.";
 }
 
