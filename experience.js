@@ -93,13 +93,20 @@ async function getDataExperience(token){
       var data = [{
         data: arrayXP,
         backgroundColor: [
-          "#264653",
+          "#2a9d8f",
           "#e9c46a",
           "#e76f51",
         ],
         borderColor: "#fff"
       }];
       var options = {
+        title: {
+          display: true,
+          text: "Répartition par niveau d'expérience"
+        },
+        legend: {
+          position: 'bottom'
+        },
         tooltips: {
           enabled: true
         },
@@ -109,33 +116,32 @@ async function getDataExperience(token){
             //permet de transformer les données en pourcentages
             formatter: (value, ctx) => {
               //let sum = ctx.dataset._meta[0].total; //demander pour _meta[0]
-              let sum = data[0].data.reduce((accumulator, currentValue) => accumulator + currentValue,0);    // n'adapte pas les %
+
+              let sum = data[0].data.reduce((accumulator, currentValue) => accumulator + currentValue,0);   //  n'adapte pas les %
               let percentage = (value * 100 / sum).toFixed(0) + "%";  //.toFixed(0) permet d'arrondir sans avoir de chiffres à virgule
               return percentage;
             },
             color: '#fff',
-          }
+          },
         }
       };
 
-       var ctx = document.getElementById("ChartExperience").getContext('2d');
+      var ctx = document.getElementById("ChartExperience").getContext('2d');
       var myChart = new Chart(ctx, {
-        type: 'pie',
+        type: 'doughnut',
         data: {
-        labels: ['< 1 an>', 'Entre 1 et 3 ans', '+3 ans'],
+        labels: ['- 1 an', 'Entre 1 et 3 ans', '+3 ans'],
           datasets: data
         },
-        options: options
+         options: options 
       });
-        }
+    }
+      
+      
 
 async function execution(){
 let keyResult = await generateKey ()
-await drawGraphExperience(keyResult)  
+await drawGraphExperience(keyResult) 
 }
 
-execution()
-
- 
-
-
+execution();
