@@ -118,10 +118,13 @@ async function getDataExperience(token){
               //let sum = ctx.dataset._meta[0].total; //demander pour _meta[0]
 
               let sum = data[0].data.reduce((accumulator, currentValue) => accumulator + currentValue,0);   //  n'adapte pas les %
-              let percentage = (value * 100 / sum).toFixed(0) + "%";  //.toFixed(0) permet d'arrondir sans avoir de chiffres à virgule
-              return percentage;
-            },
-            color: '#fff',
+              let percentage = (value * 100 / sum).toFixed(0);  //.toFixed(0) permet d'arrondir sans avoir de chiffres à virgule
+              if (percentage<5) {
+                return "";
+              }
+              else return percentage + "%";
+              },
+              color: '#fff',
           },
         }
       };
@@ -140,8 +143,9 @@ async function getDataExperience(token){
       
 
 async function execution(){
-let keyResult = await generateKey ()
-await drawGraphExperience(keyResult) 
+let keyResult = await generateKey ();
+await drawGraphExperience(keyResult);
+document.getElementById("date").innerHTML = new Date().toLocaleDateString() + " à " +  new Date().toLocaleTimeString() + " sur l'API pole emploi.";
 }
 
 execution();

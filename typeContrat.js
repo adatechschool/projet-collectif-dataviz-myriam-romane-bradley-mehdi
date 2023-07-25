@@ -62,8 +62,8 @@ let typeContrat = {
     CDI : ["CDI"],
     Interim : ["interim"],
     Stage :["stage"],
-    Apprentissage : ["apprentissage"],
-    Alternance : ["alternant"]
+    Alternance : ["apprentissage","alternant","professionalisation"]
+    
 }
 let nbOffresTrouvees=0;
 let nbOffresParTypeContrat=[];
@@ -81,7 +81,7 @@ for (const contrat in typeContrat) {
             counter++;
         }
     }
-    if (counter !== 0) {
+    if (counter >= 0) {
         nbOffresTrouvees+=counter;
         console.log(`nombre d'offres ${contrat} : ${counter}`);
         nbOffresParTypeContrat.push(counter);
@@ -100,6 +100,13 @@ var data = [{
     borderColor: "#fff"
   }];
   var options = {
+    title: {
+      display: true,
+      text: "Répartition par type de contrat"
+    },
+    legend: {
+      position: 'bottom',
+    },
       tooltips: {
         enabled: true
       },
@@ -110,8 +117,11 @@ var data = [{
           formatter: (value, ctx) => {
             //let sum = ctx.dataset._meta[0].total; //demander pour _meta[0]
             let sum = data[0].data.reduce((accumulator, currentValue) => accumulator + currentValue,0);    // n'adapte pas les %
-           let percentage = (value * 100 / sum).toFixed(0) + "%";  //.toFixed(0) permet d'arrondir sans avoir de chiffres à virgule
-           return percentage;
+           let percentage = (value * 100 / sum).toFixed(0);  //.toFixed(0) permet d'arrondir sans avoir de chiffres à virgule
+           if (percentage<5) {
+            return "";
+           }
+           else return percentage + "%";
           },
           color: '#fff',
        }
@@ -121,9 +131,9 @@ var data = [{
   var ctx = document.getElementById("ChartContrats").getContext('2d');
 
   var myChart = new Chart(ctx, {
-    type: 'pie',
+    type: 'doughnut',
     data: {
-    labels: ["CDI","CDD","interim","stage","apprentissage","alternance"],
+    labels: ["CDD","CDI","interim","stage","alternance"],
       datasets: data
     },
     options: options

@@ -13,7 +13,7 @@ text-align: center;
 width:15% ;
 }
 
-#intro {
+p {
     text-align: center;
 }
 
@@ -45,13 +45,13 @@ button {
     justify-content: center;
 }
 
-/*.chart{
+.chart{
     padding : 2rem;
     border: 1px solid #fff;
     border-radius: 1rem;
-    background:  #251c35;
+    background:  #efecf3;
     box-shadow : 0 0 16px rgba(0,0,0,0.8);
     margin: 50px;
-}*/
+}
 
 
