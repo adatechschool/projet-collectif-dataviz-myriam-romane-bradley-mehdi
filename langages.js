@@ -101,15 +101,7 @@ async function execute () {
           ],
           borderColor: "#fff"
         }];
-
         var options = {
-          title: {
-            display: true,
-            text: "Répartition par langage"
-          },
-          legend: {
-            position: 'bottom',
-          },
             tooltips: {
               enabled: true
             },
