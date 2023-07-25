@@ -1,3 +1,4 @@
+
 async function generateKey () {
 
     let key;
@@ -22,9 +23,16 @@ async function generateKey () {
         console.log(key)
         return key
   }
+
+ async function getDepartement() {
+    var departement= document.getElementById("departement").value.toString() ;
+   return departement
+
+  }
+
   async function getData(index,token) {
     let array;
-    
+    let codePostal = await getDepartement()
     const requestOptions = {
       method: 'GET',
       headers: {
@@ -33,7 +41,7 @@ async function generateKey () {
       }
     };
 
-    await fetch(`https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&publieeDepuis=31&departement=44&range=${index}-${index+149}`, requestOptions)
+    await fetch(`https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&publieeDepuis=31&departement=${codePostal}&range=${index}-${index+149}`, requestOptions)
     .then(response => response.json())
     .then(result => array = result.resultats)
     .catch(error => array = []);
@@ -139,5 +147,4 @@ var data = [{
     options: options
   });
 }
-
-console.log(execute())
+document.getElementById("button").addEventListener("click",execute)
