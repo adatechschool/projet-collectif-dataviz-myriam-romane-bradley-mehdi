@@ -108,8 +108,8 @@ async function getDataExperience(token){
           datalabels: {
             //permet de transformer les données en pourcentages
             formatter: (value, ctx) => {
-              let sum = ctx.dataset._meta[0].total; //demander pour _meta[0]
-             // let sum = data[0].data.reduce((accumulator, currentValue) => accumulator + currentValue,0);     n'adapte pas les %
+              //let sum = ctx.dataset._meta[0].total; //demander pour _meta[0]
+              let sum = data[0].data.reduce((accumulator, currentValue) => accumulator + currentValue,0);    // n'adapte pas les %
               let percentage = (value * 100 / sum).toFixed(0) + "%";  //.toFixed(0) permet d'arrondir sans avoir de chiffres à virgule
               return percentage;
             },
