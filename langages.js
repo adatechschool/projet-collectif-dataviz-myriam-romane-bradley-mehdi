@@ -1,3 +1,4 @@
+// key automatically generated / Post request to get new access
 async function generateKey () {
 
   let key;
@@ -19,14 +20,15 @@ async function generateKey () {
       .then(response => response.json())
       .then(result => key = result.access_token)
       .catch(error => console.log('error', error));
-      console.log(key)
       return key
 }
 
+// function to get the departement typed by the user
 async function getDepartement() {
   var departement= document.getElementById("departement").value.toString() ;
  return departement }
 
+ // request to get the datas from the API 
 async function getData(index,token) {
     let array;
     let codePostal = await getDepartement()
@@ -37,7 +39,7 @@ async function getData(index,token) {
         Authorization: `Bearer ${token}`
       }
     };
-
+    // get 150 job offers from the ROME code M1805 for the last 31 days from variable index and store it in an array 
     await fetch(`https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&publieeDepuis=31&departement=${codePostal}&range=${index}-${index+149}`, requestOptions)
     .then(response => response.json())
     .then(result => array = result.resultats)
@@ -46,17 +48,21 @@ async function getData(index,token) {
     return array;
 }
 
+// main function 
 async function execute () {
 
-  document.getElementById("button").disabled = true;
+  document.getElementById("button").disabled = true; // stop the creation of the div when the user press the button several times 
 
+  // delete the last graphic to call a new one
   if(document.getElementById("ChartLangages")) {
     document.getElementById("ChartLangages").remove();
   }
-  let token = await generateKey();
+  let token = await generateKey(); // generate a new key
     let finalArray=[];
     let index=0;
     let stopCondition = false;
+
+    // create while loop which get the data from getData and increase the index
     while (!stopCondition) {
         let newArray = await getData(index,token);
         if (newArray.length === 0) {
@@ -65,8 +71,7 @@ async function execute () {
         finalArray = finalArray.concat(newArray);
         index+=150;
     }
-
-    console.log(`nombre d'offres total : ${finalArray.length}`);
+    // objects to contain the languages to look for in the job offers
     let langages = {
         java : ["java ","Java ","JAVA ","Java/","JAVA/","java/"],
         python : ["python","Python","PYTHON","python/","Python/","PYTHON/"],
@@ -75,30 +80,30 @@ async function execute () {
         Csharp : ["C#/","C#"],
         javascript : ["js","JS","Javascript","JAVASCRIPT","javascript","node","Node","nodeJS","NodeJS","js/","JS/","Javascript/","JAVASCRIPT/","javascript/","node/","Node/","nodeJS/","NodeJS/"]
     }
+    //nested loop to look for the key words in the job offers
     let nbOffresTrouvees=0;
     let nbOffresParLangage=[];
-    for (const langage in langages) {
+    for (const langage in langages) {// loop on languages object
         let counter = 0;
-        for (let i =0; i<finalArray.length; i++) {
-            let string = JSON.stringify(finalArray[i]);
-            let search=0;
-            langages[langage].forEach(element => { 
-                if(string.indexOf(element) != -1) {
-                    search++;
+        for (let i =0; i<finalArray.length; i++) { // loop on job offers 
+            let string = JSON.stringify(finalArray[i]); // transform the job offers into a string
+            let search=false;
+            langages[langage].forEach(element => { // loop through the key words for each languages in the array langages
+                if(string.indexOf(element) != -1) { // check if the key word has been found
+                    search=true; // change the boolean value of search
                 }
             });
-            if (search > 0) {
+            if (search) { // if the boolean is true then increment the counter
                 counter++;
             }
         }
-        if (counter >= 0) {
-            nbOffresTrouvees+=counter;
-            console.log(`nombre d'offres ${langage} : ${counter}`);
-            nbOffresParLangage.push(counter);
+        if (counter >= 0) { 
+            nbOffresTrouvees+=counter; // take the value of counter 
+            nbOffresParLangage.push(counter); // push the final count into the array nbOffresParLangage
         }
     }
-    console.log(nbOffresTrouvees);
 
+    // create the graphic using chart.js 
     var data = [{
           data: nbOffresParLangage,
           backgroundColor: [
@@ -152,12 +157,12 @@ async function execute () {
           newCanvas.setAttribute("width","300");
           newCanvas.setAttribute("height","300");
       
-          //ajouter dans le HTML
+          //add in the HTML
           document.getElementById("chart2").appendChild(newCanvas);
         }
         
         addElement();
-
+        // details of the chart parameters
         var ctx = document.getElementById("ChartLangages").getContext('2d');
         
         var myChart = new Chart(ctx, {
@@ -171,6 +176,7 @@ async function execute () {
         document.getElementById("button").disabled = false;
 }
 
+// event listener to execute the main function when the user click on the button search
 document.getElementById("button").addEventListener("click",execute)
 
 
