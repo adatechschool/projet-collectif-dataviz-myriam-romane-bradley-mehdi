@@ -1,57 +1,107 @@
-h1 { 
-font-family: 'Gill Sans' ;
-font-size:300%;
-color: #1ED180;
-text-align: center;
+/*caractéristiques de la bannière*/
+header{
+    background-color: #264653;
+    width: 100%;
+    height: 55px;
+    color: #efecf3;
+    margin:0;
+    padding:5px;
 }
 
-#codePostal {
-text-align: center;
-}
-
-#departement {
-width:15% ;
-}
-
-p {
+h1{
+    font-family: 'Andale Mono', monospace;
+    font-size: 25px;
     text-align: center;
+    letter-spacing: 2px;
 }
 
-input {
-    height : 30px;
-    min-width: 320px;
-    font-size: 1em;
+body {
+    background-color: #efecf3;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding:0;
+
+}
+
+.description {
+    font-family:'Trebuchet MS', sans-serif;
     text-align: center;
-    border-radius: 25px;
-    background-color: white;
-    border-color: #a7dfc6;
+    color: #264653;
+    padding: 5px;
 }
 
+.filtres{
+    margin-top:40px;
+    text-align:center;
+
+}
+
+/* caractéristiques de tous les boutons*/  
 button {
-    height : 30px;
-    min-width: 50px;
-    font-size: 1em;
-    text-align: center;
-    border-radius: 25px;
-    background-color: #a7dfc6;
-    border-color: white;
-    border-style: none;
-}
+        height : 32px;
+        max-width: 240px;
+        padding:5px;
+        font-size: 1em;
+        text-align: center;
+        color: white;
+        border-radius: 25px;
+        background-color: #264653;
+        border-color: white;
+        border-style: none;
+        cursor:pointer
+    
+    }
 
+    /*lorsque l'on passe la souris sur ces boutons, on en change la couleur*/
+    #departement-button:hover,#experience-button:hover,#langages-button:hover,#contrat-button:hover{
+        background-color:#2a9d8f
+    }
 
-.container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+    /*lorsque l'on passe la souris sur lancer la recherche, on en change la couleur*/
+    #button{
+        margin-left: 20px;
+        color: white;
+        background-color:#2a9d8f;
+    }
+    
 
-.chart{
-    padding : 2rem;
-    border: 1px solid #fff;
-    border-radius: 1rem;
-    background:  #efecf3;
-    box-shadow : 0 0 16px rgba(0,0,0,0.8);
-    margin: 50px;
-}
+    /*caractéristiques de l'input*/
+    input {
+        height : 30px;
+        min-width: 320px;
+        font-size: 1em;
+        text-align: center;
+        border-radius: 25px;
+        background-color: white;
+        border-color: #2a9d8f;
+    }
+    
+/*contient l'ensemble des graphiques*/
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .chart{
+        padding : 2rem;
+        border: 1px solid #fff;
+        border-radius: 1rem;
+        background:  #efecf3;
+        box-shadow : 0 0 16px rgba(0,0,0,0.8);
+        margin: 50px;
+        cursor: pointer;
+    }
 
+    p{
+        text-align: center;
+        color:#264653
+        
+    }
+
+    /*modifie la couleur de la date de récupération des données*/
+    #date{
+        color:#e76f51
+    }
 

@@ -176,6 +176,6 @@ document.getElementById("button").addEventListener("click",execute);
 async function execute(){
 let keyResult = await generateKey();
 await drawGraphExperience(keyResult);
-document.getElementById("date").innerHTML = new Date().toLocaleDateString() + " à " +  new Date().toLocaleTimeString() + " sur l'API pole emploi.";
+document.getElementById("date").innerHTML = " le " + new Date().toLocaleDateString() + " à " +  new Date().toLocaleTimeString();
 }
 

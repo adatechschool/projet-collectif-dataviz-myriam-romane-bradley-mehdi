@@ -3,20 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--police d'écriture google-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope&display=swap" rel="stylesheet">
+    <!--lien vers le fichier CSS-->
     <link href="style.css" rel="stylesheet" />
+    <!--librairies graphiques : Ajax, JQuery, Chart.js-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@0.7.0"></script>
+
     <title>Choose your career </title>
   </head>
   
   <body>
-    <h1>Choose your career</h1>
-    <p>Hello les dev !<br><br>Lorsqu'on débute (et même plus tard), il est parfois difficile de savoir quel nouveau langage explorer. <br><br>Ici, tu trouveras des informations sur les langages les plus recherchés dans le département de ton choix.<br><br> Tu pourras aussi avoir des infos sur les niveaux d'expérience demandés et les types de contrats disponible. <br><br>Parcours le site pour décider de ta carrière !</p>
+    <header>
+      <h1>CHOOSE YOUR CAREER</h1>
+    </header>
+
+    <p class="description">Hello les dev ! Lorsqu'on débute (et même plus tard), il est parfois difficile de savoir quel nouveau langage explorer. <br><br>Ici, tu trouveras des informations sur les langages les plus recherchés dans le département de ton choix.<br><br> Tu pourras aussi avoir des infos sur les niveaux d'expérience demandés et les types de contrats disponible. <br><br>Parcours le site pour décider de ta carrière !</p>
     
-    <div id="codePostal">
-    <input type = "number" id="departement" name="departement" min = "1" max="974" placeholder="Tape ton numéro de département (ex: 44)">
-    <button id="button">Chercher</button>
+    <div class="filtres">
+    <input type = "text" id="departement" name="departement" placeholder="Tape ton numéro de département (ex: 44)">
+    
+    <button id="departement-button">Département</button>
+    <button id="region-button">Région</button>
+    <button id="experience-button">Expérience</button>
+    <button id="langages-button">Langages</button>
+    <button id="contrat-button">Contrat</button>
+    <button id="button">Lancer la recherche</button>
     </div>
   
     <div class="container"> 
@@ -31,73 +47,10 @@
       </div>
     </div>
 
-    <p>Données récupérées le <span id="date"></p>
+    <p> Dernière mise à jour des données <span id="date"></span> via l'API Pôle Emploi</p>
 
-  <fieldset>
-  <legend>Quel est ton niveau d'expérience ?</legend>
-    <div>
-    <input id = "debutant" type = "radio" name="experience" value= 1 > 
-    <label for="debutant"> Moins d'1 an d'expérience </label>
     </div>
-
-    <div>
-    <input id = "confirme" type = "radio" name="experience" value= 2 > 
-    <label for="confirme"> Entre 1 an et 3 ans d'expérience </label>
-    </div>
-
-    <div>
-    <input id = "expert" type = "radio" name="experience" value= 3 > 
-    <label for="expert"> Plus de 3 ans d'expérience </label>
-    </div>
-  </fieldset>
     
-  <fieldset>
-    <legend>Quel type de contrat cherches-tu ?</legend>
-      <div>
-      <input id = "cdi" type = "radio" name="contrat" value= 1 > 
-      <label for="cdi"> CDI </label>
-      </div>
-  
-      <div>
-      <input id = "cdd" type = "radio" name="contrat" value= 2 > 
-      <label for="cdd"> CDD </label>
-      </div>
-  
-      <div>
-      <input id = "alternance" type = "radio" name="contrat" value= 3 > 
-      <label for="alternance"> Alternance </label>
-      </div>
-
-      <div>
-      <input id = "stage" type = "radio" name="contrat" value= 4 > 
-      <label for="stage"> Stage </label>
-      </div>
-    </fieldset>   
-
-    <fieldset>
-      <legend>Quel type d'entreprise cherches-tu ?</legend>
-        <div>
-        <input id = "start-up" type = "radio" name="companyType" value= 1 > 
-        <label for="start-up"> Start-up </label>
-        </div>
-    
-        <div>
-        <input id = "pme" type = "radio" name="companyType" value= 2 > 
-        <label for="pme"> PME </label>
-        </div>
-    
-        <div>
-        <input id = "grand-groupe" type = "radio" name="companyType" value= 3 > 
-        <label for="grand-groupe"> Grand groupe </label>
-        </div>
-  
-        <div>
-        <input id = "esn" type = "radio" name="companyType" value= 4 > 
-        <label for="esn"> ESN</label>
-        </div>
-      </fieldset> 
-    
-    <button>Lancer la recherche</button>
   
   </div>
   </body>
