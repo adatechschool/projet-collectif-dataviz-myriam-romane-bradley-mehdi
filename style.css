@@ -3,7 +3,7 @@ header{
     background-color: #264653;
     width: 100%;
     height: 55px;
-    color: #efecf3;
+    color: white;
     margin:0;
     padding:5px;
 }
@@ -13,10 +13,11 @@ h1{
     font-size: 25px;
     text-align: center;
     letter-spacing: 2px;
+
 }
 
 body {
-    background-color: #efecf3;
+    background-color: rgb(253, 252, 252);
     height: 100%;
     width: 100%;
     margin: 0;
@@ -32,7 +33,7 @@ body {
 }
 
 .filtres{
-    margin-top:40px;
+    margin-top:35px;
     text-align:center;
 
 }
@@ -41,7 +42,9 @@ body {
 button {
         height : 32px;
         max-width: 240px;
-        padding:5px;
+        padding:6px;
+        margin-left: 3px;
+        margin-right: 3px;
         font-size: 1em;
         text-align: center;
         color: white;
@@ -54,12 +57,12 @@ button {
     }
 
     /*lorsque l'on passe la souris sur ces boutons, on en change la couleur*/
-    #departement-button:hover,#experience-button:hover,#langages-button:hover,#contrat-button:hover{
+    #departement-button:hover,#region-button:hover,#experience-button:hover,#langages-button:hover, #framework-button:hover,#contrat-button:hover{
         background-color:#2a9d8f
     }
 
     #button{
-        margin-left: 20px;
+        margin-left: 5px;
         color: white;
         background-color:#2a9d8f;
     }
@@ -68,7 +71,7 @@ button {
     /*caractéristiques de l'input*/
     input {
         height : 30px;
-        min-width: 320px;
+        min-width: 380px;
         font-size: 1em;
         text-align: center;
         border-radius: 25px;
