@@ -49,6 +49,9 @@ async function generateKey () {
     return array;
 }
 async function execute () {
+
+    document.getElementById("button").disabled = true;
+
     if(document.getElementById("ChartContrats")) {
       document.getElementById("ChartContrats").remove();
     }
@@ -165,6 +168,9 @@ var data = [{
     },
     options: options
   });
+
+  document.getElementById("button").disabled = false;
+
 }
 
 document.getElementById("button").addEventListener("click",execute)
