@@ -33,75 +33,52 @@ async function getDepartement() {
   var departement= document.getElementById("departement").value.toString() ;
  return departement}
 
-async function getDataExperience(token){
+async function getDataExperience(index,token,experience){
+  let resultat=0;
   let codePostal = await getDepartement()
-  const options = {
-      method: 'GET',
-      headers: {
-        cookie: 'BIGipServerVS_EX035-VIPA-A4PMEX_HTTP.app~POOL_EX035-VIPA-A4PMEX_HTTP=251070986.10062.0000; TS01585e85=01b3abf0a2600b9070e0208e6c69297328ff71af3418f75a7c004480c8586c5635b45b9f16e8d90766ea93053ba4214d2a03fad907',
-        // authorisation à renouveler régulièrement(25min)
-        Authorization: `Bearer ${token}`
-      }
-    };
+  const requestOptions = {
+    method: 'GET',
+    headers: {
+      cookie: 'BIGipServerVS_EX035-VIPA-A4PMEX_HTTP.app~POOL_EX035-VIPA-A4PMEX_HTTP=251070986.10062.0000; TS01585e85=01b3abf0a2600b9070e0208e6c69297328ff71af3418f75a7c004480c8586c5635b45b9f16e8d90766ea93053ba4214d2a03fad907',
+      Authorization: `Bearer ${token}`
+    }
+  };
 
-    //var pour stocker les données fetch
-    var xp1;
-    var xp2A;
-    var xp2B;
-    var xp2;
-    var xp3;
+  await fetch(`https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&experience=${experience}&publieeDepuis=31&departement=${codePostal}&range=${index}-${index+149}`, requestOptions)
+  .then(response => response.json())
+  .then(result => resultat = result.resultats.length)
+  .catch(error => resultat);
 
- 
-    //fetch pour récupérer tous les jobs qui répondent au ROME 1805 de Nantes avec -1 an d'XP sur 1mois
-    await fetch(`https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&experience=1&publieeDepuis=31&departement=${codePostal}`, options)
-      .then(response => response.json())
-      .then(response => {
-      xp1 = response.resultats.length;    //"resultats" est retourné dans la console, il donne le nombre d'éléments du tableau
-      console.log(xp1)    //on attend que les .then s'effectuent puis on appelle console.log de xp1 pour afficher le resultat 
-      })  
-      .catch(err => console.error(err));
-    
-      //fetch pour récupérer tous les jobs qui répondent au ROME 1805 de Nantes avec de 1 à 3 ans d'XP sur 1mois (0-149)
-      await fetch(`https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&experience=2&publieeDepuis=31&departement=${codePostal}`, options)
-      .then(response => response.json())
-      .then(response => {
-        xp2A = response.resultats.length;
-        console.log(xp2A)
-      })
-      .catch(err => console.error(err));
+  return resultat;
+}
 
-      //fetch pour récupérer tous les jobs qui répondent au ROME 1805 de Nantes avec de 1 à 3 ans d'XP sur 1mois (+150)
-      await fetch(`https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&experience=3&publieeDepuis=31&departement=${codePostal}`, options)
-      .then(response => response.json())
-      .then(response => {
-        xp2B = response.resultats.length;
-        console.log(xp2B)
-      })
-      .catch(err => console.error(err));
 
-      //fetch pour récupérer tous les jobs qui répondent au ROME 1805 de Nantes avec +3 ans d'XP sur 1mois (0-149)
-     await fetch('https://api.pole-emploi.io/partenaire/offresdemploi/v2/offres/search?codeROME=M1805&experience=3&publieeDepuis=31&commune=44109', options)
-      .then(response => response.json())
-      .then(response => {
-        xp3 = response.resultats.length;
-        console.log(xp3)
-      })
-      .catch(err => console.error(err));
-
-      xp2 = xp2A + xp2B;
-      return [xp1,xp2,xp3];
-    
-  }
 
   // fonction pour construire le graph => à terminer demain 
-  async function drawGraphExperience (token) {
+  async function drawGraphExperience () {
     if(document.getElementById("ChartExperience")) {
       document.getElementById("ChartExperience").remove();
     }
-    var arrayXP = await getDataExperience(token); 
-
+    let token = await generateKey();
+    let finalArray=[];
+    for (let experience = 1; experience<=3; experience++) {
+      let result=0
+      let index=0;
+      let stopCondition = false;
+      while (!stopCondition) {
+        let newResult = await getDataExperience(index,token,experience);
+        result += newResult;
+        if (newResult === 0) {
+            stopCondition = true;
+        }
+        index+=150;
+      } 
+      console.log(`nb d'offres pour le niveau d'expérience ${experience} = ${result}`);
+      finalArray = finalArray.concat([result]);
+    }
+    
       var data = [{
-        data: arrayXP,
+        data: finalArray,
         backgroundColor: [
           "#2a9d8f",
           "#e9c46a",
@@ -174,8 +151,7 @@ async function getDataExperience(token){
 document.getElementById("button").addEventListener("click",execute);
 
 async function execute(){
-let keyResult = await generateKey();
-await drawGraphExperience(keyResult);
+await drawGraphExperience();
 document.getElementById("date").innerHTML = new Date().toLocaleDateString() + " à " +  new Date().toLocaleTimeString() + " sur l'API pole emploi.";
 }
 
