@@ -47,6 +47,9 @@ async function getData(index,token) {
 }
 
 async function execute () {
+
+  document.getElementById("button").disabled = true;
+
   if(document.getElementById("ChartLangages")) {
     document.getElementById("ChartLangages").remove();
   }
@@ -165,6 +168,7 @@ async function execute () {
           },
           options: options
         });
+        document.getElementById("button").disabled = false;
 }
 
 document.getElementById("button").addEventListener("click",execute)

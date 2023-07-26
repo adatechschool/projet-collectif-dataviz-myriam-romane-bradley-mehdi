@@ -151,7 +151,9 @@ async function getDataExperience(index,token,experience){
 document.getElementById("button").addEventListener("click",execute);
 
 async function execute(){
+  document.getElementById("button").disabled = true;
 await drawGraphExperience();
 document.getElementById("date").innerHTML = new Date().toLocaleDateString() + " à " +  new Date().toLocaleTimeString() + " sur l'API pole emploi.";
+document.getElementById("button").disabled = false;
 }
 
