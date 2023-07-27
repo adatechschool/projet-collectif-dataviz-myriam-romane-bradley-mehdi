@@ -163,7 +163,7 @@ async function generateKey () {
 
         // create while loop which get the data from getData and increase the index
         while (!stopCondition) {
-            let nbOffres = await getData(index,token,departements[i].code);
+            let nbOffres = await getData(index,token,departements[i].code.toString());
             if (nbOffres === 0) {
                 stopCondition = true;
             }
