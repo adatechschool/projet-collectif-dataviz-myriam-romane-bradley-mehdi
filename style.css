@@ -107,3 +107,8 @@ button {
         color:#e76f51
     }
 
+    #buttonByDpt {
+        justify-content: center;
+        text-align: center;
+    }
+

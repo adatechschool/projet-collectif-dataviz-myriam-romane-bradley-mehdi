@@ -16,14 +16,14 @@
 
     <title>Choose your career </title>
   </head>
-  
+
   <body>
     <header>
       <h1>CHOOSE YOUR CAREER</h1>
     </header>
 
     <p class="description">Hello les dev ! Lorsqu'on débute (et même plus tard), il est parfois difficile de savoir quel nouveau langage explorer. <br><br>Ici, tu trouveras des informations sur les langages les plus recherchés dans le département de ton choix.<br><br> Tu pourras aussi avoir des infos sur les niveaux d'expérience demandés et les types de contrats disponible. <br><br>Parcours le site pour décider de ta carrière !</p>
-    
+
     <div class="filtres">
     <input type = "text" id="departement" name="departement" placeholder="Tape ton numéro de département (ex: 44)">
     <button id="button">Lancer la recherche</button> 
@@ -35,9 +35,9 @@
     <button id="langages-button">Langages</button>
     <button id="framework-button">Framework</button>
     <button id="contrat-button">Contrat</button>
-    
+
     </div>
-  
+
     <div class="container"> 
       <ul>
       <div class="chart" id="chart1"></div>
@@ -47,20 +47,17 @@
       <div class="chart" id="chart4"></div>
       </ul>
   </div>
-    
-    <div><button id="buttonByDpt">voir graphique departement</button></div>
-    
-    <div class="chart" id="chart5">
 
-    </div>
-    
+  <div><button id="buttonByDpt">Voir le graphique par département</button></div>
+  <div class="chart" id="chart4"></div>
+
     </div>
 
     <p> Dernière mise à jour des données <span id="date"></span> via l'API Pôle Emploi</p>
 
     </div>
-    
-  
+
+
   </div>
   </body>
   <script src="experience.js"></script>
