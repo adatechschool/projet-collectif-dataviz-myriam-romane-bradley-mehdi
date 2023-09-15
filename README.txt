@@ -1,4 +1,6 @@
-Project Started 17.07.2023
+Projet commencé le 17.07.2023
+
+Nom du projet : Choose your career
 
 Equipe projet : Myriam, Romane, Bradley, Mehdi
 
