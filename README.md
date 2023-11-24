@@ -9,3 +9,5 @@ Objectif du projet : créer une app qui permet de visualiser le nombre d'offres 
 API utilisée : Pole emploi
 
 Scope : offres de développeur.se
+
+![image](https://github.com/MehdiGrimault/Choose_your_career/assets/123545914/a2471a72-3a75-485f-a2ac-89f03938cee8)
